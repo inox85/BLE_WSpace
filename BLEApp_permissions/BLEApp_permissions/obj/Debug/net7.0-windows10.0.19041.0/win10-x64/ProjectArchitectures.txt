@@ -1,0 +1,1 @@
+C:\Users\innocenti\source\repos\BLEApp_permissions\BLEApp_permissions\BLEApp_permissions.csproj;x64

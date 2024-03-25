@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+
+
+<ContentPage
+    x:Class="BLEApp_permissions.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Foromero"
+    Background="White">
+
+
+
+
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="25"
+        VerticalOptions="Start">
+        <NavigationPage.TitleView>
+            <StackLayout
+                HeightRequest="40"
+                Orientation="Horizontal"
+                VerticalOptions="Center" />
+        </NavigationPage.TitleView>
+
+
+        <HorizontalStackLayout Spacing="60">
+
+            <Image
+                HorizontalOptions="StartAndExpand"
+                Source="Resources/Styles/Logo.png"
+                WidthRequest="200" />
+
+            <Button
+                x:Name="scanBtn"
+                Clicked="OnScanButtonClicked"
+                FontSize="Medium"
+                HorizontalOptions="EndAndExpand"
+                Text="Connetti"
+                TextColor="#980539" />
+
+        </HorizontalStackLayout>
+
+        <Label
+            x:Name="lblBattery"
+            FontSize="Large"
+            TextColor="Black" />
+
+        <Label
+            x:Name="lblCustom"
+            FontSize="Large"
+            TextColor="Black" />
+
+        <Label
+            x:Name="lblBoolean"
+            FontSize="Large"
+            TextColor="Black" />
+
+        <Label
+            x:Name="lblString"
+            FontSize="Large"
+            TextColor="Black" />
+
+
+
+        <!--<Entry
+            x:Name="valueTb"
+            Background="Beige"
+            FontSize="Large" />-->
+
+        <Picker
+            x:Name="ledPkr"
+            Title="Seleziona un'opzione"
+            FontSize="Medium"
+            SelectedIndexChanged="Picker_SelectedIndexChanged"
+            SelectedItem="{Binding SelectedOption}"
+            TextColor="Black">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>LED acceso</x:String>
+                    <x:String>LED Spento</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Button
+            x:Name="pageButton"
+            Clicked="OnPageButtonClicked"
+            FontSize="Medium"
+            HorizontalOptions="EndAndExpand"
+            Text="Pagina"
+            TextColor="#980539" />
+        <!--<Button
+            x:Name="submintBtn"
+            Clicked="OnSubmitButtonClicked"
+            FontSize="Large"
+            Text="Invia" />-->
+
+
+
+
+    </VerticalStackLayout>
+
+
+</ContentPage>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BLEApp_permissions</name>
+    </assembly>
+    <members>
+        <member name="M:BLEApp_permissions.Platforms.Android.BluetoothPermissions.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="scan">Needed only if your app looks for Bluetooth devices.
+            If your app doesn't use Bluetooth scan results to derive physical location, you can make a strong assertion that your app never uses the Bluetooth permissions to derive physical location. 
+            Add the `android:usesPermissionFlags` attribute to your BLUETOOTH_SCAN permission declaration, and set this attribute's value to `neverForLocation`.
+            </param>
+            <param name="advertise">Needed only if your app makes the device discoverable to Bluetooth devices.</param>
+            <param name="connect">Needed only if your app communicates with already-paired Bluetooth devices.</param>
+            <param name="bluetoothLocation">Needed only if your app uses Bluetooth scan results to derive physical location.</param>
+            <remarks>
+             https://developer.android.com/guide/topics/connectivity/bluetooth/permissions
+            </remarks>
+        </member>
+        <member name="T:BLEApp_permissions.Properties.Resources">
+            <summary>
+              Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+            </summary>
+        </member>
+        <member name="P:BLEApp_permissions.Properties.Resources.ResourceManager">
+            <summary>
+              Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+            </summary>
+        </member>
+        <member name="P:BLEApp_permissions.Properties.Resources.Culture">
+            <summary>
+              Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+              ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+            </summary>
+        </member>
+        <member name="P:BLEApp_permissions.Properties.Resources.Logo_scritta">
+            <summary>
+              Cerca una risorsa localizzata di tipo System.Byte[].
+            </summary>
+        </member>
+    </members>
+</doc>
