@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BLEApp_permissions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+0181c293fd593e6b45f72f36a4d49d7398fb6ac3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+f37a956fde7b913f09fc090c0cb78a420bd8b48e")]
 [assembly: System.Reflection.AssemblyProductAttribute("BLEApp_permissions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BLEApp_permissions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
