@@ -9,10 +9,10 @@ async def handle_client(reader, writer):    # Dati da inviare
     print("Ricevuta richiesta...")
     #await get_ble_characteristic_value("19B10007-E8F2-537E-4F6C-D104768A1214")
 
-    await manager.get_characteristic_value()
+    payload = await manager.get_all_characteristc_values()
 
     data = {'temperature': 25, 'humidity': 50}
-    message = json.dumps(data).encode()
+    message = json.dumps(payload).encode()
 
     # Invia i dati al client
     writer.write(message)
@@ -48,15 +48,35 @@ class BluetoothManager:
         else:
             print("could not find target bluetooth device nearby")
     
-    async def get_characteristic_value(self):
+    async def get_all_characteristc_values(self):
+        char_dict = dict()
+        char_dict["battery"] = await self.get_numeric_characteristic_value("19B10002-E8F2-537E-4F6C-D104768A1214")
+        char_dict["battery"] = int.from_bytes(char_dict["battery"], byteorder='little')
+        char_dict["custom"] = await self.get_numeric_characteristic_value("19B10005-E8F2-537E-4F6C-D104768A1214")
+        char_dict["custom"] = int.from_bytes(char_dict["custom"], byteorder='little')
+        print(char_dict)
+        return char_dict
+    
+    async def get_string_characteristic_value(self, guid):
         try:
-            print("Leggo:", "19B10007-E8F2-537E-4F6C-D104768A1214")
-            data = await self.client.read_gatt_char("19B10002-E8F2-537E-4F6C-D104768A1214")
+            print("Leggo caratteristica:", guid)
+            data = await self.client.read_gatt_char(guid)
             data = data.decode('utf-8') #convert byte to str
             print("data: {}".format(data))
         except Exception as ex:
             print("Errore:", ex)
+        return data
+    
+    async def get_numeric_characteristic_value(self, guid):
+        try:
+            print("Leggo caratteristica:", guid)
+            data = await self.client.read_gatt_char(guid)
 
+            #data = data.decode('utf-8') #convert byte to str
+            print("data: {}".format(data))
+        except Exception as ex:
+            print("Errore:", ex)
+        return data
 
 async def init_server():
     # Indirizzo IP e porta del server
