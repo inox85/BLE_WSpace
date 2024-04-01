@@ -1,35 +1,28 @@
+
 import asyncio
 import json
 from bleak import BleakScanner
 from bleak import BleakClient
 import time
 
+class BluethoothState: 
+    def __init__(self):
+        self.is_connected = False
+        self.device_connected_name = None
+        self.device_connected_address = None
 
-async def handle_client(reader, writer):    # Dati da inviare
-    print("Ricevuta richiesta...")
-    #await get_ble_characteristic_value("19B10007-E8F2-537E-4F6C-D104768A1214")
-
-    payload = await manager.get_all_characteristc_values()
-
-    data = {'temperature': 25, 'humidity': 50}
-    message = json.dumps(payload).encode()
-
-    # Invia i dati al client
-    writer.write(message)
-    await writer.drain()
-    # Chiudi la connessione
-    writer.close()
 
 class BluetoothManager:
     def __init__(self):
         self.client = None
+        self.bluethooth_state = BluethoothState()
 
     async def init_ble(self):
-        target_name = "Forometro"
+        target_name = "EasySymp"
         target_address = None
 
         SERVICE_UUID = "19B10000-E8F2-537E-4F6C-D104768A1214"
-        CHARACTERISTIC_UUID = "19B10007-E8F2-537E-4F6C-D104768A1214"
+        CHARACTERISTIC_UUID = "19B10002-E8F2-537E-4F6C-D104768A1214"
         devices = await BleakScanner.discover()
         
         for d in devices:
@@ -44,16 +37,20 @@ class BluetoothManager:
             self.client = BleakClient(target_address)
             await self.client.connect()
             print(f"Connected: {self.client.is_connected}")
+            self.bluethooth_state.is_connected = self.client.is_connected
+            self.bluethooth_state.device_connected_name = target_name
+            self.bluethooth_state.device_connected_address = target_address
+
                                
         else:
             print("could not find target bluetooth device nearby")
     
     async def get_all_characteristc_values(self):
         char_dict = dict()
-        char_dict["battery"] = await self.get_numeric_characteristic_value("19B10002-E8F2-537E-4F6C-D104768A1214")
-        char_dict["battery"] = int.from_bytes(char_dict["battery"], byteorder='little')
-        char_dict["custom"] = await self.get_numeric_characteristic_value("19B10005-E8F2-537E-4F6C-D104768A1214")
-        char_dict["custom"] = int.from_bytes(char_dict["custom"], byteorder='little')
+        char_dict["GSR"] = await self.get_numeric_characteristic_value("19B10002-E8F2-537E-4F6C-D104768A1214")
+        char_dict["GSR"] = int.from_bytes(char_dict["GSR"], byteorder='little')
+        #char_dict["custom"] = await self.get_numeric_characteristic_value("19B10005-E8F2-537E-4F6C-D104768A1214")
+        #char_dict["custom"] = int.from_bytes(char_dict["custom"], byteorder='little')
         print(char_dict)
         return char_dict
     
@@ -77,33 +74,3 @@ class BluetoothManager:
         except Exception as ex:
             print("Errore:", ex)
         return data
-
-async def init_server():
-    # Indirizzo IP e porta del server
-    server_address = ('127.0.0.1', 5005)
-
-    # Creazione del server
-    server = await asyncio.start_server(handle_client, *server_address)
-    
-    async with server:
-        # Il server rimane in ascolto delle connessioni
-        print("Avvio server...")
-        await server.serve_forever()
-
-    print("OK")
-
-########################################################################
-
-manager = BluetoothManager()
-
-async def main():
-    await manager.init_ble()    
-    await init_server()
-    
-    
-    
-
-    
-
-# Avvio del server
-asyncio.run(main())
