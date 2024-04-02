@@ -10,11 +10,14 @@ class BluethoothState:
         self.is_connected = False
         self.device_connected_name = None
         self.device_connected_address = None
+        
 
 class BluetoothManager:
     def __init__(self):
         self.client = None
         self.bluethooth_state = BluethoothState()
+        self.characteristc_values = dict()
+
 
     async def init_ble(self):
         target_name = "EasySymp"
@@ -39,10 +42,17 @@ class BluetoothManager:
             self.bluethooth_state.is_connected = self.client.is_connected
             self.bluethooth_state.device_connected_name = target_name
             self.bluethooth_state.device_connected_address = target_address
-
                                
         else:
             print("could not find target bluetooth device nearby")
+    
+    async def get_characteristics(self, chacteristics):
+        for key, value in chacteristics.items():
+            print(key)
+            print(value)
+            #self.characteristc_values[characteristic[0]] = await self.get_numeric_characteristic_value(characteristic[1][1])
+
+
     
     async def get_all_characteristc_values(self):
         char_dict = dict()

@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QMainWindow, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout
 import socket
 import threading
 from server import ServerThread
@@ -12,35 +12,9 @@ import matplotlib.pyplot as plt
 import random
 import time
 from style import button_style
-import datetime
-import atexit
+from realtime_plot import RealTimePlotWidget
 
 manager = BluetoothManager()
-
-class RealTimePlotWidget(FigureCanvas):
-    data_updated = pyqtSignal()
-
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        self.fig, self.ax = plt.subplots()
-        self.x_data = []
-        self.y_data = []
-        super(RealTimePlotWidget, self).__init__(self.fig)
-        self.setParent(parent)
-        self.init_plot()
-        self.data_updated.connect(self.update_plot)
-
-    def init_plot(self):
-        self.ax.set_xlabel('Time')
-        self.ax.set_ylabel('Value')
-        self.ax.set_title('Real Time Plot')
-
-    def update_plot(self):
-        self.ax.clear()
-        self.ax.plot(self.x_data, self.y_data)
-        self.ax.set_xlabel('Time')
-        self.ax.set_ylabel('Value')
-        self.ax.set_title('Real Time Plot')
-        self.draw()
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -50,8 +24,11 @@ class MainWindow(QWidget):
         self.manager = BluetoothManager()
         self.char_dictionary = dict()
         self.setStyleSheet(button_style)
+        self.requested_characteristics = dict()
         
-        # Inizializziamo un timer per aggiornare il grafico
+
+    def init_requested_chacteristic_dictionary(self):
+        self.requested_characteristics["GSR"] = "19B10002-E8F2-537E-4F6C-D104768A1214" 
 
     def init_ui(self):
         layout = QVBoxLayout()
@@ -61,7 +38,6 @@ class MainWindow(QWidget):
         self.button.clicked.connect(self.on_connect_click)
         
         self.rec_button = QPushButton('Verifica stato')
-        self.rec_button.clicked.connect(self.on_state_button_click)
 
         self.rec_button = QPushButton('Inizia registrazione')
         self.export_button = QPushButton('Esporta CSV')
@@ -88,36 +64,33 @@ class MainWindow(QWidget):
     
     def update_plot(self):
         # Aggiorniamo i dati del grafico con nuovi valori casuali
-
         self.real_time_plot_widget.x_data.append(len(self.real_time_plot_widget.x_data))
         self.real_time_plot_widget.y_data.append(random.randint(0, 100))
         self.real_time_plot_widget.data_updated.emit()
     
-    async def read_ble(self):
+    async def read_ble_and_update_data(self):
         while(1):
             print("Recupero valori da BLE...")
-            self.char_dictionary = await manager.get_all_characteristc_values()
+            self.char_dictionary = await manager.get_characteristics(self.requested_characteristics)
             print(self.char_dictionary)
             time.sleep(1)
 
     def on_connect_click(self):
+        self.init_requested_chacteristic_dictionary()
         asyncio.ensure_future(self.async_event())
-
-    def on_state_button_click(self):
-        print(manager.bluethooth_state.is_connected)
 
     async def async_event(self):
         self.button.setText("Ricerca dispositivo Easysimp in corso...")
-        print("Avvio evento asincrono...")
+        print("Ricerca dispositivo Easysimp in corso...")
         await manager.init_ble()
         self.button.setText(f"Connesso al dispositivo {manager.bluethooth_state.device_connected_name} [{manager.bluethooth_state.device_connected_address}]")
-        print("Evento asincrono completato")
+        print(f"Connesso al dispositivo {manager.bluethooth_state.device_connected_name} [{manager.bluethooth_state.device_connected_address}]")
         self.read_ble_thread()
         self.init_real_time_plot()
     
     def run_async_read_ble(self):
         # Esegui la funzione read_ble all'interno di un loop di eventi asyncio
-        asyncio.run(self.read_ble())
+        asyncio.run(self.read_ble_and_update_data())
 
     def read_ble_thread(self):
         thread = threading.Thread(target=self.run_async_read_ble)
