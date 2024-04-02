@@ -15,10 +15,16 @@
   This example code is in the public domain.
 */
 
+//#define C3
+
 #include <ArduinoBLE.h>
 #include <esp_task_wdt.h>
 
-#define LED 3
+#ifdef C3
+  #define LED 3
+#else
+ #define LED LED_BUILTIN
+#endif
 
  // Bluetooth® Low Energy Battery Service
 BLEService DataService("19B10000-E8F2-537E-4F6C-D104768A1214");

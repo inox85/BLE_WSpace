@@ -11,7 +11,6 @@ class BluethoothState:
         self.device_connected_name = None
         self.device_connected_address = None
 
-
 class BluetoothManager:
     def __init__(self):
         self.client = None
@@ -21,7 +20,7 @@ class BluetoothManager:
         target_name = "EasySymp"
         target_address = None
 
-        SERVICE_UUID = "19B10000-E8F2-537E-4F6C-D104768A1214"
+        #SERVICE_UUID = "19B10000-E8F2-537E-4F6C-D104768A1214"
         CHARACTERISTIC_UUID = "19B10002-E8F2-537E-4F6C-D104768A1214"
         devices = await BleakScanner.discover()
         
