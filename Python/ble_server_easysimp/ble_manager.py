@@ -47,12 +47,15 @@ class BluetoothManager:
             print("could not find target bluetooth device nearby")
     
     async def get_characteristics(self, chacteristics):
-        for key, value in chacteristics.items():
+        for key, guid in chacteristics.items():
             print(key)
-            print(value)
-            #self.characteristc_values[characteristic[0]] = await self.get_numeric_characteristic_value(characteristic[1][1])
+            print(guid)
+            self.characteristc_values[key] = await self.get_characteristc_raw_value(guid)
+            print(self.characteristc_values)
+    
 
-
+    async def get_characteristc_raw_value(self,guid):
+        return await self.client.read_gatt_char(guid)
     
     async def get_all_characteristc_values(self):
         char_dict = dict()

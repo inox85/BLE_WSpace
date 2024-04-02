@@ -83,7 +83,7 @@ class MainWindow(QWidget):
         self.button.setText("Ricerca dispositivo Easysimp in corso...")
         print("Ricerca dispositivo Easysimp in corso...")
         await manager.init_ble()
-        self.button.setText(f"Connesso al dispositivo {manager.bluethooth_state.device_connected_name} [{manager.bluethooth_state.device_connected_address}]")
+        self.button.setText(f"Connesso {manager.bluethooth_state.device_connected_name} [{manager.bluethooth_state.device_connected_address}]")
         print(f"Connesso al dispositivo {manager.bluethooth_state.device_connected_name} [{manager.bluethooth_state.device_connected_address}]")
         self.read_ble_thread()
         self.init_real_time_plot()
