@@ -19,6 +19,7 @@
 <span class="moduletype">Script</span>  <div class="import">
 imports:
     <a href="#PyQt5.QtCore">PyQt5.QtCore</a>
+ &#8226;   <a href="#PyQt5.QtGui">PyQt5.QtGui</a>
  &#8226;   <a href="#PyQt5.QtWidgets">PyQt5.QtWidgets</a>
  &#8226;   <a href="#_bootlocale">_bootlocale</a>
  &#8226;   <a href="#_collections_abc">_collections_abc</a>
@@ -26,13 +27,10 @@ imports:
  &#8226;   <a href="#abc">abc</a>
  &#8226;   <a href="#asyncio">asyncio</a>
  &#8226;   <a href="#asyncqt">asyncqt</a>
- &#8226;   <a href="#atexit">atexit</a>
- &#8226;   <a href="#ble_manager">ble_manager</a>
  &#8226;   <a href="#codecs">codecs</a>
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#collections.abc">collections.abc</a>
  &#8226;   <a href="#copyreg">copyreg</a>
- &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#encodings">encodings</a>
  &#8226;   <a href="#encodings.aliases">encodings.aliases</a>
  &#8226;   <a href="#encodings.ascii">encodings.ascii</a>
@@ -160,6 +158,10 @@ imports:
  &#8226;   <a href="#heapq">heapq</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#keyword">keyword</a>
+ &#8226;   <a href="#lib.ble_manager">lib.ble_manager</a>
+ &#8226;   <a href="#lib.realtime_plot">lib.realtime_plot</a>
+ &#8226;   <a href="#lib.server">lib.server</a>
+ &#8226;   <a href="#lib.style">lib.style</a>
  &#8226;   <a href="#linecache">linecache</a>
  &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#matplotlib.backends.backend_qt5agg">matplotlib.backends.backend_qt5agg</a>
@@ -176,12 +178,10 @@ imports:
  &#8226;   <a href="#random">random</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#reprlib">reprlib</a>
- &#8226;   <a href="#server">server</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#sre_compile">sre_compile</a>
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
- &#8226;   <a href="#style">style</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#threading">threading</a>
  &#8226;   <a href="#time">time</a>
@@ -691,7 +691,7 @@ imported by:
   <a target="code" href="" type="text/plain"><tt>'org.python'</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
-    <a href="#copy">copy</a>
+    <a href="#pickle">pickle</a>
  &#8226;   <a href="#setuptools.sandbox">setuptools.sandbox</a>
  &#8226;   <a href="#xml.sax">xml.sax</a>
 
@@ -2844,6 +2844,7 @@ imported by:
  &#8226;   <a href="#PyQt5.QtGui">PyQt5.QtGui</a>
  &#8226;   <a href="#PyQt5.QtWidgets">PyQt5.QtWidgets</a>
  &#8226;   <a href="#asyncqt">asyncqt</a>
+ &#8226;   <a href="#lib.realtime_plot">lib.realtime_plot</a>
  &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.backends.qt_compat">matplotlib.backends.qt_compat</a>
 
@@ -2864,6 +2865,7 @@ imports:
 imported by:
     <a href="#PyQt5.QtGui">PyQt5.QtGui</a>
  &#8226;   <a href="#PyQt5.QtWidgets">PyQt5.QtWidgets</a>
+ &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.backends.qt_compat">matplotlib.backends.qt_compat</a>
 
   </div>
@@ -4458,7 +4460,6 @@ imported by:
  &#8226;   <a href="#asyncqt">asyncqt</a>
  &#8226;   <a href="#asyncqt._unix">asyncqt._unix</a>
  &#8226;   <a href="#asyncqt._windows">asyncqt._windows</a>
- &#8226;   <a href="#ble_manager">ble_manager</a>
  &#8226;   <a href="#bleak">bleak</a>
  &#8226;   <a href="#bleak.backends.bluezdbus.client">bleak.backends.bluezdbus.client</a>
  &#8226;   <a href="#bleak.backends.bluezdbus.manager">bleak.backends.bluezdbus.manager</a>
@@ -5392,7 +5393,6 @@ imported by:
 imported by:
     <a href="#PIL.Image">PIL.Image</a>
  &#8226;   <a href="#logging">logging</a>
- &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib">matplotlib</a>
  &#8226;   <a href="#matplotlib._pylab_helpers">matplotlib._pylab_helpers</a>
  &#8226;   <a href="#matplotlib.backends.backend_pgf">matplotlib.backends.backend_pgf</a>
@@ -5521,25 +5521,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="ble_manager"></a>
-  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/ble_manager.py" type="text/plain"><tt>ble_manager</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#asyncio">asyncio</a>
- &#8226;   <a href="#bleak">bleak</a>
- &#8226;   <a href="#json">json</a>
- &#8226;   <a href="#time">time</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#main_window.py">main_window.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="bleak"></a>
   <a target="code" href="///C:/users/innocenti/appdata/local/programs/python/python39/lib/site-packages/bleak/__init__.py" type="text/plain"><tt>bleak</tt></a>
 <span class="moduletype">Package</span>  <div class="import">
@@ -5574,8 +5555,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#ble_manager">ble_manager</a>
- &#8226;   <a href="#bleak">bleak</a>
+    <a href="#bleak">bleak</a>
  &#8226;   <a href="#bleak.assigned_numbers">bleak.assigned_numbers</a>
  &#8226;   <a href="#bleak.backends">bleak.backends</a>
  &#8226;   <a href="#bleak.backends.bluezdbus.client">bleak.backends.bluezdbus.client</a>
@@ -5583,6 +5563,7 @@ imported by:
  &#8226;   <a href="#bleak.backends.winrt.client">bleak.backends.winrt.client</a>
  &#8226;   <a href="#bleak.exc">bleak.exc</a>
  &#8226;   <a href="#bleak.uuids">bleak.uuids</a>
+ &#8226;   <a href="#lib.ble_manager">lib.ble_manager</a>
 
   </div>
 
@@ -8640,8 +8621,8 @@ imported by:
   <a target="code" href="///C:/users/innocenti/appdata/local/programs/python/python39/lib/copy.py" type="text/plain"><tt>copy</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#'org.python'">'org.python'</a>
- &#8226;   <a href="#copyreg">copyreg</a>
+    <a href="#copyreg">copyreg</a>
+ &#8226;   <a href="#org">org</a>
  &#8226;   <a href="#types">types</a>
  &#8226;   <a href="#weakref">weakref</a>
 
@@ -9092,7 +9073,6 @@ imported by:
  &#8226;   <a href="#fontTools.misc.timeTools">fontTools.misc.timeTools</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#http.server">http.server</a>
- &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.axis">matplotlib.axis</a>
  &#8226;   <a href="#matplotlib.backends.backend_pdf">matplotlib.backends.backend_pdf</a>
  &#8226;   <a href="#matplotlib.backends.backend_pgf">matplotlib.backends.backend_pgf</a>
@@ -20740,7 +20720,6 @@ imports:
   <div class="import">
 imported by:
     <a href="#PyInstaller.utils.hooks.conda">PyInstaller.utils.hooks.conda</a>
- &#8226;   <a href="#ble_manager">ble_manager</a>
  &#8226;   <a href="#dateutil.zoneinfo">dateutil.zoneinfo</a>
  &#8226;   <a href="#fontTools.ttLib.tables.D__e_b_g">fontTools.ttLib.tables.D__e_b_g</a>
  &#8226;   <a href="#jinja2.utils">jinja2.utils</a>
@@ -20855,6 +20834,92 @@ imports:
   <div class="import">
 imported by:
     <a href="#kiwisolver">kiwisolver</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="lib"></a>
+  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/lib/__init__.py" type="text/plain"><tt>lib</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imported by:
+    <a href="#lib.ble_manager">lib.ble_manager</a>
+ &#8226;   <a href="#lib.realtime_plot">lib.realtime_plot</a>
+ &#8226;   <a href="#lib.server">lib.server</a>
+ &#8226;   <a href="#lib.style">lib.style</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="lib.ble_manager"></a>
+  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/lib/ble_manager.py" type="text/plain"><tt>lib.ble_manager</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#bleak">bleak</a>
+ &#8226;   <a href="#lib">lib</a>
+ &#8226;   <a href="#time">time</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main_window.py">main_window.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="lib.realtime_plot"></a>
+  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/lib/realtime_plot.py" type="text/plain"><tt>lib.realtime_plot</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#PyQt5.QtCore">PyQt5.QtCore</a>
+ &#8226;   <a href="#lib">lib</a>
+ &#8226;   <a href="#matplotlib.backends.backend_qt5agg">matplotlib.backends.backend_qt5agg</a>
+ &#8226;   <a href="#matplotlib.pyplot">matplotlib.pyplot</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main_window.py">main_window.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="lib.server"></a>
+  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/lib/server.py" type="text/plain"><tt>lib.server</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#lib">lib</a>
+ &#8226;   <a href="#socket">socket</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#threading">threading</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main_window.py">main_window.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="lib.style"></a>
+  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/lib/style.py" type="text/plain"><tt>lib.style</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#lib">lib</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main_window.py">main_window.py</a>
 
   </div>
 
@@ -23428,7 +23493,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#main_window.py">main_window.py</a>
+    <a href="#lib.realtime_plot">lib.realtime_plot</a>
+ &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.backends">matplotlib.backends</a>
 
   </div>
@@ -24924,7 +24990,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#main_window.py">main_window.py</a>
+    <a href="#lib.realtime_plot">lib.realtime_plot</a>
+ &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib">matplotlib</a>
  &#8226;   <a href="#matplotlib._enums">matplotlib._enums</a>
  &#8226;   <a href="#matplotlib._layoutgrid">matplotlib._layoutgrid</a>
@@ -30977,7 +31044,7 @@ imported by:
   <a target="code" href="" type="text/plain"><tt>org</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
-    <a href="#pickle">pickle</a>
+    <a href="#copy">copy</a>
 
   </div>
 
@@ -31712,7 +31779,8 @@ imported by:
   <a target="code" href="///C:/users/innocenti/appdata/local/programs/python/python39/lib/pickle.py" type="text/plain"><tt>pickle</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_compat_pickle">_compat_pickle</a>
+    <a href="#'org.python'">'org.python'</a>
+ &#8226;   <a href="#_compat_pickle">_compat_pickle</a>
  &#8226;   <a href="#_pickle">_pickle</a>
  &#8226;   <a href="#codecs">codecs</a>
  &#8226;   <a href="#copyreg">copyreg</a>
@@ -31720,7 +31788,6 @@ imports:
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#itertools">itertools</a>
- &#8226;   <a href="#org">org</a>
  &#8226;   <a href="#pprint">pprint</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#struct">struct</a>
@@ -33654,24 +33721,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="server"></a>
-  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/server.py" type="text/plain"><tt>server</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#socket">socket</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#threading">threading</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#main_window.py">main_window.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="setuptools"></a>
   <a target="code" href="///C:/users/innocenti/appdata/local/programs/python/python39/lib/site-packages/setuptools/__init__.py" type="text/plain"><tt>setuptools</tt></a>
 <span class="moduletype">Package</span>  <div class="import">
@@ -35200,6 +35249,7 @@ imported by:
  &#8226;   <a href="#ftplib">ftplib</a>
  &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#http.server">http.server</a>
+ &#8226;   <a href="#lib.server">lib.server</a>
  &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.backends.backend_webagg">matplotlib.backends.backend_webagg</a>
  &#8226;   <a href="#matplotlib.backends.qt_compat">matplotlib.backends.qt_compat</a>
@@ -35208,7 +35258,6 @@ imported by:
  &#8226;   <a href="#multiprocessing.reduction">multiprocessing.reduction</a>
  &#8226;   <a href="#multiprocessing.resource_sharer">multiprocessing.resource_sharer</a>
  &#8226;   <a href="#platform">platform</a>
- &#8226;   <a href="#server">server</a>
  &#8226;   <a href="#setuptools.package_index">setuptools.package_index</a>
  &#8226;   <a href="#setuptools.ssl_support">setuptools.ssl_support</a>
  &#8226;   <a href="#socketserver">socketserver</a>
@@ -35723,17 +35772,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="style"></a>
-  <a target="code" href="///C:/Users/innocenti/Desktop/BLE_WSpace/Python/ble_server_easysimp/style.py" type="text/plain"><tt>style</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imported by:
-    <a href="#main_window.py">main_window.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="subprocess"></a>
   <a target="code" href="///C:/users/innocenti/appdata/local/programs/python/python39/lib/subprocess.py" type="text/plain"><tt>subprocess</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
@@ -36021,6 +36059,7 @@ imported by:
  &#8226;   <a href="#jinja2.lexer">jinja2.lexer</a>
  &#8226;   <a href="#jinja2.loaders">jinja2.loaders</a>
  &#8226;   <a href="#jinja2.runtime">jinja2.runtime</a>
+ &#8226;   <a href="#lib.server">lib.server</a>
  &#8226;   <a href="#lib2to3.pgen2.driver">lib2to3.pgen2.driver</a>
  &#8226;   <a href="#lib2to3.pgen2.tokenize">lib2to3.pgen2.tokenize</a>
  &#8226;   <a href="#lib2to3.pytree">lib2to3.pytree</a>
@@ -36156,7 +36195,6 @@ imported by:
  &#8226;   <a href="#scipy._distributor_init">scipy._distributor_init</a>
  &#8226;   <a href="#scipy._lib._testutils">scipy._lib._testutils</a>
  &#8226;   <a href="#selectors">selectors</a>
- &#8226;   <a href="#server">server</a>
  &#8226;   <a href="#setuptools._vendor.packaging._compat">setuptools._vendor.packaging._compat</a>
  &#8226;   <a href="#setuptools._vendor.packaging.markers">setuptools._vendor.packaging.markers</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
@@ -36469,6 +36507,7 @@ imported by:
  &#8226;   <a href="#concurrent.futures.thread">concurrent.futures.thread</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#jinja2.utils">jinja2.utils</a>
+ &#8226;   <a href="#lib.server">lib.server</a>
  &#8226;   <a href="#logging">logging</a>
  &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.backends.backend_agg">matplotlib.backends.backend_agg</a>
@@ -36493,7 +36532,6 @@ imported by:
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#pyparsing.core">pyparsing.core</a>
  &#8226;   <a href="#queue">queue</a>
- &#8226;   <a href="#server">server</a>
  &#8226;   <a href="#setuptools._vendor.pyparsing">setuptools._vendor.pyparsing</a>
  &#8226;   <a href="#socketserver">socketserver</a>
  &#8226;   <a href="#subprocess">subprocess</a>
@@ -36522,7 +36560,6 @@ imported by:
  &#8226;   <a href="#asyncio.base_events">asyncio.base_events</a>
  &#8226;   <a href="#asyncio.windows_events">asyncio.windows_events</a>
  &#8226;   <a href="#asyncqt">asyncqt</a>
- &#8226;   <a href="#ble_manager">ble_manager</a>
  &#8226;   <a href="#concurrent.futures._base">concurrent.futures._base</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#dateutil.parser._parser">dateutil.parser._parser</a>
@@ -36536,6 +36573,7 @@ imported by:
  &#8226;   <a href="#gzip">gzip</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#http.server">http.server</a>
+ &#8226;   <a href="#lib.ble_manager">lib.ble_manager</a>
  &#8226;   <a href="#logging">logging</a>
  &#8226;   <a href="#main_window.py">main_window.py</a>
  &#8226;   <a href="#matplotlib.backend_bases">matplotlib.backend_bases</a>

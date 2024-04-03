@@ -27,13 +27,19 @@
 #endif
 
  // Bluetooth® Low Energy Battery Service
-BLEService DataService("19B10000-E8F2-537E-4F6C-D104768A1214");
+
+
+BLEService BatteryService("19B1180F-E8F2-537E-4F6C-D104768A1214");
+// Bluetooth® Low Energy Battery Level Characteristic
+BLEUnsignedIntCharacteristic batteryLevelChar("19B12A19-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
+    BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
  // Bluetooth® Low Energy Battery Service
 
-
+BLEService DataService("19B10000-E8F2-537E-4F6C-D104768A1214");
 // Bluetooth® Low Energy Battery Level Characteristic
 BLEUnsignedIntCharacteristic gsrChar("19B10002-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
     BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
+  
 
 
 int oldBatteryLevel = 0;  // last battery level reading from analog input
@@ -45,16 +51,13 @@ void setup() {
   
   initBLE();
   
-  pinMode(18, INPUT);
-  
   pinMode(LED, OUTPUT); // initialize the built-in LED pin to indicate when a central is connected
-  pinMode(18, OUTPUT); // initialize the built-in LED pin to indicate when a central is connected  
+  
   // begin initialization
   Serial.println("Bluetooth® device active, waiting for connections...");
 }
 
-void initBLE(){
-  
+void initBLE(){ 
     if (!BLE.begin()) {
     Serial.println("starting BLE failed!");
     while (1);
@@ -65,12 +68,18 @@ void initBLE(){
      and can be used by remote devices to identify this Bluetooth® Low Energy device
      The name can be changed but maybe be truncated based on space left in advertisement packet
   */
-  BLE.setLocalName("EasySymp");
+  BLE.setLocalName("EasySimp");
   BLE.setAdvertisedService(DataService); // add the service UUID
-  
+  BLE.setAdvertisedService(BatteryService); // add the service UUID
+
   DataService.addCharacteristic(gsrChar); // add the battery level characteristic
+  BatteryService.addCharacteristic(batteryLevelChar);
+
   BLE.addService(DataService); // Add the battery service
-  gsrChar.writeValue(0); // set initial value for this characteristic
+  BLE.addService(BatteryService); // Add the battery service
+
+  gsrChar.writeValue(10); // set initial value for this characteristic
+  batteryLevelChar.writeValue(20); // set initial value for this characteristic
   // start advertising
   BLE.advertise();
 }
