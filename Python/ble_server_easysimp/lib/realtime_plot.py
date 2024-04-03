@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 class RealTimePlotWidget(FigureCanvas):
     data_updated = pyqtSignal()
 
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
+    def __init__(self, parent=None, width=5, height=4, dpi=300):
         self.fig, self.ax = plt.subplots()
         self.x_data = []
         self.y_data = []

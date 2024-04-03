@@ -15,7 +15,7 @@
   This example code is in the public domain.
 */
 
-//#define C3
+#define C3
 
 #include <ArduinoBLE.h>
 #include <esp_task_wdt.h>
