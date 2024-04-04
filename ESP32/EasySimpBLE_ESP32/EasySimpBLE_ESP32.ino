@@ -15,7 +15,7 @@
   This example code is in the public domain.
 */
 
-#define C3
+//#define C3
 
 #include <ArduinoBLE.h>
 #include <esp_task_wdt.h>
@@ -52,7 +52,9 @@ void setup() {
   initBLE();
   
   pinMode(LED, OUTPUT); // initialize the built-in LED pin to indicate when a central is connected
-  
+  digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
   // begin initialization
   Serial.println("Bluetooth® device active, waiting for connections...");
 }
@@ -62,7 +64,7 @@ void initBLE(){
     Serial.println("starting BLE failed!");
     while (1);
   }
-
+ 
   /* Set a local name for the Bluetooth® Low Energy device
      This name will appear in advertising packets
      and can be used by remote devices to identify this Bluetooth® Low Energy device
@@ -84,9 +86,12 @@ void initBLE(){
   BLE.advertise();
 }
 
+unsigned long lastBlink = 0;
+bool blinkStatus = false;
 
 void loop() {
   // wait for a Bluetooth® Low Energy central
+  
   BLEDevice central = BLE.central();
 
   // if a central is connected to the peripheral:
@@ -99,21 +104,31 @@ void loop() {
     
     // check the battery level every 200ms
     // while the central is connected:
-    while (central.connected()) {
-      long currentMillis = millis();
-      // if 200ms have passed, check the battery level:
-      if (currentMillis - previousMillis >= 100) {
-
-      }
+    while(central.connected()) {
+        int gsr = analogRead(32);
+        Serial.println("GSR: ");
+        Serial.println(gsr);
+        gsrChar.writeValue(gsr);
     }
+
+
     // when the central disconnects, turn off the LED:
     digitalWrite(LED, LOW);
     Serial.print("Disconnected from central: ");
     Serial.println(central.address());
     BLE.end();
-    initBLE();
-    esp_task_wdt_init(1, true);
-    esp_task_wdt_add(NULL);
-
+//    initBLE();
+//    esp_task_wdt_init(1, true);
+//    esp_task_wdt_add(NULL);
   }
+
+  while(central.connected()) {
+      int gsr = analogRead(32);
+      Serial.println("GSR: ");
+      Serial.println(gsr);
+      gsrChar.writeValue(gsr);
+  }
+
+
+  
 }
