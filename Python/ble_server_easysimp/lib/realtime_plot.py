@@ -42,6 +42,6 @@ class RealTimePlotWidget(FigureCanvas):
     def set_plot_interval(self, interval_to_set):
         self.plot_interval = interval_to_set
     
-    def get_plot_interval(self, interval_to_set):
+    def get_plot_interval(self):
         return self.plot_interval
         

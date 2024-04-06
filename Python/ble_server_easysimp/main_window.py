@@ -1,18 +1,15 @@
 import asyncio
-import random
 import sys
 import threading
 import time
 from datetime import datetime
 import asyncqt
-from PyQt5.QtCore import QTimer
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout
 from lib.ble_manager import BluetoothManager
 from lib.realtime_plot import RealTimePlotWidget
 from lib.style import gui_style
-
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -108,7 +105,6 @@ class MainWindow(QWidget):
             if self.manager.bluethooth_state.is_connected:
                 self.connect_button.setText(
                     f"Connesso {self.manager.bluethooth_state.device_connected_name} [{self.manager.bluethooth_state.device_connected_address}]")
-                print("Lettura da BLE...")
                 self.char_dictionary = await self.manager.get_characteristics(self.requested_characteristics)
                 print(f"Dizionario caratteristiche: {self.char_dictionary}")
                 interval = datetime.now() - self.start_datetime
