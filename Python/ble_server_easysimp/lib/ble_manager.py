@@ -1,14 +1,13 @@
 from bleak import BleakScanner
 from bleak import BleakClient
+from PyQt5.QtWidgets import QPushButton
 import time
-
 
 class BluethoothState:
     def __init__(self):
         self.is_connected = False
         self.device_connected_name = None
         self.device_connected_address = None
-
 
 class BluetoothManager:
     def __init__(self):
@@ -50,12 +49,14 @@ class BluetoothManager:
                 id = row_char[0]
                 guid = row_char[1]
                 type = row_char[2]
+                coeff = row_char[3]
                 print(f"Lettura caratteristica -> ID: {id} GUID: {guid} tipo: {type}")
                 data = await self.get_characteristc_raw_value(guid)
                 if type == "int":
-                    self.characteristc_values[id] = int.from_bytes(data, byteorder='little')
+                    self.characteristc_values[id] = int.from_bytes(data, byteorder='little') * coeff
             return self.characteristc_values
-        except:
+        except Exception as ex:
+            print(f"Errore: {ex}")
             self.bluethooth_state.is_connected = False
 
     async def get_characteristc_raw_value(self, guid):

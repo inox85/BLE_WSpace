@@ -6,10 +6,12 @@ from datetime import datetime
 import asyncqt
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLabel
 from lib.ble_manager import BluetoothManager
 from lib.realtime_plot import RealTimePlotWidget
 from lib.style import gui_style
+from lib.server import ServerThread
+
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -19,6 +21,7 @@ class MainWindow(QWidget):
         self.connect_button = None
         self.close_button = None
         self.change_graph_interval_button = None
+        self.gsr_label = None
         self.setWindowIcon(QIcon('icon.ico'))  # Imposta l'icona  
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowCloseButtonHint)  # Rimuove il pulsante di chiusura
         self.real_time_plot_widget = RealTimePlotWidget(self)
@@ -34,37 +37,45 @@ class MainWindow(QWidget):
 
     def init_requested_chacteristic_dictionary(self):
         # self.requested_characteristics["GSR"] = "19B10002-E8F2-537E-4F6C-D104768A1214" 
-        self.requested_characteristics = [["GSR", "19B10002-E8F2-537E-4F6C-D104768A1214", "int"],
-                                          ["Battery", "19B12A19-E8F2-537E-4F6C-D104768A1214", "int"]]
+        self.requested_characteristics = [["Battery_level", "19B12A19-E8F2-537E-4F6C-D104768A1214", "int", 1],
+                                          ["GSR", "19B10002-E8F2-537E-4F6C-D104768A1214", "int", 0.001],
+                                          ["GSR_Raw", "19B10003-E8F2-537E-4F6C-D104768A1214", "int", 1]]
 
     def init_ui(self):
         main_layout = QHBoxLayout()
         gui_layout = QVBoxLayout()
         buttons_row1 = QHBoxLayout()
         buttons_row2 = QHBoxLayout()
+        label_row1 = QHBoxLayout()
 
         self.connect_button = QPushButton('Connetti dispositivo')
         self.connect_button.clicked.connect(self.on_connect_click)
 
-        self.rec_button = QPushButton('Inizia registrazione')
+        self.rec_button = QPushButton('Resetta registrazione')
+        self.rec_button.clicked.connect(self.on_rec_button_click)
         self.export_button = QPushButton('Esporta CSV')
         self.close_button = QPushButton('Esci')
         self.close_button.setStyleSheet("background-color: #EB6565;")
         self.close_button.clicked.connect(self.on_close_click)
-        self.close_button.setFixedWidth(100)
+        self.close_button.setFixedWidth(150)
 
-        self.change_graph_interval_button = QPushButton(f'Intervallo grafico: Completo')
+        self.change_graph_interval_button = QPushButton(f'Intervallo visualizzazione: Completo')
         self.change_graph_interval_button.clicked.connect(self.on_change_interval_click)
 
+        self.gsr_label = QLabel("GSR: --- µS/cm")
+        self.gsr_label.setAlignment(Qt.AlignCenter)
+        self.gsr_label.setFixedHeight(50)
+        label_row1.addWidget(self.gsr_label)
+
         buttons_row1.addWidget(self.connect_button)
-        buttons_row1.addWidget(self.rec_button)
         buttons_row1.addWidget(self.export_button)
         buttons_row1.addWidget(self.close_button)
-
         buttons_row2.addWidget(self.change_graph_interval_button)
+        buttons_row2.addWidget(self.rec_button)
 
         gui_layout.addLayout(buttons_row1)
         gui_layout.addWidget(self.real_time_plot_widget)
+        gui_layout.addLayout(label_row1)
         gui_layout.addLayout(buttons_row2)
 
         main_layout.addLayout(gui_layout)
@@ -75,16 +86,15 @@ class MainWindow(QWidget):
 
         self.show()
 
-    # def init_real_time_plot(self):
-    #     self.timer = QTimer(self)
-    #     self.timer.timeout.connect(self.update_plot)
-    #     self.timer.start(1000)
-
-    def update_plot(self, x_value, y_value):
-        # Aggiorniamo i dati del grafico con nuovi valori casuali
-        self.real_time_plot_widget.x_data.append(x_value)
-        self.real_time_plot_widget.y_data.append(y_value)
+    def update_gui_informations(self, time_value, gsr_value):
+        self.gsr_label.setText(f"GSR: { str(round(gsr_value, 2)) } µS/cm")
+        self.real_time_plot_widget.x_data.append(time_value)
+        self.real_time_plot_widget.y_data.append(gsr_value)
         self.real_time_plot_widget.data_updated.emit()
+
+    def on_rec_button_click(self):
+        self.start_datetime = datetime.now()
+        self.real_time_plot_widget.reset_data()
 
     def on_change_interval_click(self):
         if self.graph_interval == 0:
@@ -95,9 +105,9 @@ class MainWindow(QWidget):
             self.graph_interval = self.graph_interval * 2
 
         self.real_time_plot_widget.set_plot_interval(self.graph_interval)
-        btn_message = f"Intervallo grafico: {self.real_time_plot_widget.get_plot_interval()} secondi"
+        btn_message = f"Intervallo visualizzazione: {self.real_time_plot_widget.get_plot_interval()} secondi"
         if self.real_time_plot_widget.get_plot_interval() == 0:
-            btn_message = f"Intervallo grafico: Completo"
+            btn_message = f"Intervallo visualizzazione: Completo"
         self.change_graph_interval_button.setText(btn_message)
 
     async def read_ble_and_update_data(self):
@@ -108,7 +118,7 @@ class MainWindow(QWidget):
                 self.char_dictionary = await self.manager.get_characteristics(self.requested_characteristics)
                 print(f"Dizionario caratteristiche: {self.char_dictionary}")
                 interval = datetime.now() - self.start_datetime
-                self.update_plot(interval.total_seconds(), self.char_dictionary["GSR"])
+                self.update_gui_informations(interval.total_seconds(), self.char_dictionary["GSR"])
                 time.sleep(1)
             else:
                 self.connect_button.setText("Connetti dispositivo")
@@ -133,7 +143,7 @@ class MainWindow(QWidget):
             f"Connesso al dispositivo {self.manager.bluethooth_state.device_connected_name} [{self.manager.bluethooth_state.device_connected_address}]")
         self.start_datetime = datetime.now()
         self.read_ble_thread()
-        #self.init_real_time_plot()
+        # self.init_real_time_plot()
 
     def run_async_read_ble(self):
         self.read_ble_thread_active = True
@@ -148,6 +158,9 @@ class MainWindow(QWidget):
         await self.manager.init_ble()
         print("Connessione BLE effettuata")
 
+    def set_button_text(self, text):
+        self.connect_button.setText(text)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -155,9 +168,10 @@ if __name__ == '__main__':
     loop = asyncqt.QEventLoop(app)
     asyncio.set_event_loop(loop)
 
-    # server_thread = ServerThread('localhost', 8888)
-    # server_thread.start()
-
     window = MainWindow()
+
+    #server_thread = ServerThread('127.0.0.1', 5005)
+    #server_thread.start()
+
 
     sys.exit(app.exec_())
