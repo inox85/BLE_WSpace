@@ -39,7 +39,9 @@ class MainWindow(QWidget):
         # self.requested_characteristics["GSR"] = "19B10002-E8F2-537E-4F6C-D104768A1214" 
         self.requested_characteristics = [["Battery_level", "19B12A19-E8F2-537E-4F6C-D104768A1214", "int", 1],
                                           ["GSR", "19B10002-E8F2-537E-4F6C-D104768A1214", "int", 0.001],
-                                          ["GSR_Raw", "19B10003-E8F2-537E-4F6C-D104768A1214", "int", 1]]
+                                          ["GSR_Raw", "19B10003-E8F2-537E-4F6C-D104768A1214", "int", 1],
+                                          ["HR", "19B10004-E8F2-537E-4F6C-D104768A1214", "int", 1]]
+
 
     def init_ui(self):
         main_layout = QHBoxLayout()
