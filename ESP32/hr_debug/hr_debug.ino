@@ -39,7 +39,7 @@ MAX30105 particleSensor;
 
 FilterOnePole hrFilterHP( LOWPASS, 2.0F );
 FilterOnePole hrFilterLP( HIGHPASS, 1.0F );
-FilterOnePole beatFilter( LOWPASS, 0.1F);
+FilterOnePole beatFilter( LOWPASS, 0.5F);
 
 
 void setup()
@@ -128,7 +128,7 @@ unsigned long readings[NUM_READINGS]; // Array per mantenere le letture
 int sample_index = 0; // Indice corrente dell'array circolare
 
 
-unsigned long calculateMovingAverage(unsigned long newValue) {
+double calculateMovingAverage(unsigned long newValue) {
   // Aggiorna l'array circolare con la nuova lettura
   readings[sample_index] = newValue;
   sample_index = (sample_index + 1) % NUM_READINGS; // Aggiorna l'indice (ritorna a 0 quando raggiunge NUM_READINGS)
@@ -145,5 +145,5 @@ unsigned long calculateMovingAverage(unsigned long newValue) {
   double beat_min = beatFilter.input(((1000.0)/(double)m)* 60.0);
  
   Serial.println(beat_min);
-  return m;
+  return beat_min;
 }
