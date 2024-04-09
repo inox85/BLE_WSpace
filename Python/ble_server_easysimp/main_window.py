@@ -175,5 +175,4 @@ if __name__ == '__main__':
     #server_thread = ServerThread('127.0.0.1', 5005)
     #server_thread.start()
 
-
     sys.exit(app.exec_())

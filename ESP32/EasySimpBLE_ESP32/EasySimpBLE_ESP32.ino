@@ -23,8 +23,6 @@
 #include "MAX30105.h"
 #include "heartRate.h"
 
-
-
 #ifdef C3
   #define LED 3
 #else
@@ -167,8 +165,8 @@ void loop() {
     while(central.connected()) 
     {  
       
-      hrChar.writeValue(readHR());      
-      //readGSR();  
+      //hrChar.writeValue(readHR());      
+      readGSR();  
       
       //readHR();
       //readHR();
