@@ -36,11 +36,9 @@
 
 MAX30105 particleSensor;
 
-
 FilterOnePole hrFilterHP( LOWPASS, 2.0F );
 FilterOnePole hrFilterLP( HIGHPASS, 1.0F );
-FilterOnePole beatFilter( LOWPASS, 0.5F);
-
+FilterOnePole beatFilter( LOWPASS, 0.5F );
 
 void setup()
 {
@@ -84,7 +82,7 @@ void setup()
 
 void loop()
 {
-  
+  double raw = particleSensor.getIR();
   double hr_signal = hrFilterLP.input(hrFilterHP.input(particleSensor.getIR()));
   
   //Serial.print("hr:"); // Etichetta della prima traccia
@@ -92,10 +90,12 @@ void loop()
   //Serial.print(";");      // Separatore
 
   //Serial.print("crossing:"); // Etichetta della seconda traccia
+  //Serial.print("RAW: "); Serial.print(raw); Serial.print("  ");
   //Serial.print("HEARTH_BEAT: "); Serial.print(hr_signal); Serial.print("  ");
   //Serial.print("BEAT: "); Serial.print(checkZeroCrossing(hr_signal)); Serial.print("  ");
   //Serial.print("HR_T: "); Serial.print(checkZeroCrossing(hr_signal)); Serial.print("  ");
-  //Serial.println();    // Dati della seconda traccia
+  
+  Serial.println();    // Dati della seconda traccia
   
   //Serial.println(";");    // Terminatore di linea
   checkZeroCrossing(hr_signal);

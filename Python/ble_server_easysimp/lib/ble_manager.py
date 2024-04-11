@@ -64,6 +64,10 @@ class BluetoothManager:
                 data = await self.get_characteristc_raw_value(guid)
                 if type == "int":
                     self.characteristc_values[id] = int.from_bytes(data, byteorder='little') * coeff
+                if type == "float":
+                    value = float(int.from_bytes(data, byteorder='little')) * coeff
+                    self.characteristc_values[id] = round(value,2)
+
             return self.characteristc_values
         except Exception as ex:
             print(f"Errore: {ex}")
