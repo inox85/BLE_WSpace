@@ -3,7 +3,7 @@ import json
 from bleak import BleakScanner
 from bleak import BleakClient
 import time
-from ble_manager import BluetoothManager
+from lib.ble_manager import BluetoothManager
 
 async def handle_client(reader, writer):    # Dati da inviare
     print("Ricevuta richiesta...")
