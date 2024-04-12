@@ -19,12 +19,16 @@
 
 #include <ArduinoBLE.h>
 #include <esp_task_wdt.h>
+#include <Filters.h>
 
 #ifdef C3
   #define LED 3
 #else
  #define LED LED_BUILTIN
 #endif
+
+#define GSR_ADC 32
+
 
  // Bluetooth® Low Energy Battery Service
 
@@ -39,15 +43,23 @@ BLEService DataService("19B10000-E8F2-537E-4F6C-D104768A1214");
 // Bluetooth® Low Energy Battery Level Characteristic
 BLEUnsignedIntCharacteristic gsrChar("19B10002-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
     BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
-  
+BLEUnsignedIntCharacteristic gsrCharRaw("19B10003-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
+    BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
+
+
+FilterOnePole gsrFilter(LOWPASS, 1.0F);
 
 
 int oldBatteryLevel = 0;  // last battery level reading from analog input
 long previousMillis = 0;  // last time the battery level was checked, in ms
 
+
+
 void setup() {
   Serial.begin(9600);    // initialize serial communication
   //while (!Serial);
+
+  analogSetPinAttenuation(GSR_ADC, ADC_11db);
   
   initBLE();
   
@@ -75,12 +87,14 @@ void initBLE(){
   BLE.setAdvertisedService(BatteryService); // add the service UUID
 
   DataService.addCharacteristic(gsrChar); // add the battery level characteristic
+  DataService.addCharacteristic(gsrCharRaw); // add the battery level characteristic
   BatteryService.addCharacteristic(batteryLevelChar);
 
   BLE.addService(DataService); // Add the battery service
   BLE.addService(BatteryService); // Add the battery service
 
-  gsrChar.writeValue(10); // set initial value for this characteristic
+  gsrChar.writeValue(0); // set initial value for this characteristic
+  gsrCharRaw.writeValue(0);
   batteryLevelChar.writeValue(20); // set initial value for this characteristic
   // start advertising
   BLE.advertise();
@@ -105,30 +119,38 @@ void loop() {
     // check the battery level every 200ms
     // while the central is connected:
     while(central.connected()) {
-        int gsr = analogRead(32);
-        Serial.println("GSR: ");
+        int gsr = analogRead(GSR_ADC);
+        Serial.println("GSR_Raw: ");
         Serial.println(gsr);
-        gsrChar.writeValue(gsr);
+        gsrCharRaw.writeValue(gsr);
+        double calculatedGSR = gsrFilter.input(calcGSR(gsr));;
+        Serial.println("GSR: ");
+        Serial.println(calculatedGSR);
+        gsrChar.writeValue(calculatedGSR);
     }
-
-
+    
     // when the central disconnects, turn off the LED:
     digitalWrite(LED, LOW);
     Serial.print("Disconnected from central: ");
     Serial.println(central.address());
     BLE.end();
 //    initBLE();
-//    esp_task_wdt_init(1, true);
-//    esp_task_wdt_add(NULL);
+    esp_task_wdt_init(1, true);
+    esp_task_wdt_add(NULL);
   }
 
-  while(central.connected()) {
-      int gsr = analogRead(32);
-      Serial.println("GSR: ");
-      Serial.println(gsr);
-      gsrChar.writeValue(gsr);
-  }
-
-
+//  while(central.connected()) {
+//      int gsr = analogRead(32);
+//      Serial.println("GSR: ");
+//      Serial.println(gsr);
+//      gsrChar.writeValue(gsr);
+//  }
   
+}
+
+
+double calcGSR(int digit){
+
+  double gsr = ((double)4095-(double)digit)*1000000/((double)digit * (double)(220));
+  return gsr;
 }
