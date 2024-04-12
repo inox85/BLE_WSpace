@@ -150,7 +150,6 @@ void loop() {
 
 
 double calcGSR(int digit){
-
   double gsr = ((double)4095-(double)digit)*1000000/((double)digit * (double)(220));
   return gsr;
 }
