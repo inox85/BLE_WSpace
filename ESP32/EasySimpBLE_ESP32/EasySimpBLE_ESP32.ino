@@ -34,7 +34,6 @@
 
 MAX30105 particleSensor;
 
-
 BLEService BatteryService("19B1180F-E8F2-537E-4F6C-D104768A1214");
 // Bluetooth® Low Energy Battery Level Characteristic
 BLEUnsignedIntCharacteristic batteryLevelChar("19B12A19-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
@@ -48,8 +47,7 @@ BLEUnsignedIntCharacteristic gsrChar("19B10002-E8F2-537E-4F6C-D104768A1214",  //
 BLEUnsignedIntCharacteristic gsrCharRaw("19B10003-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
     BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
 BLEUnsignedIntCharacteristic hrChar("19B10004-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
-    BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
-    
+    BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes   
 BLEUnsignedIntCharacteristic temperatureChar("19B10005-E8F2-537E-4F6C-D104768A1214",  // standard 16-bit characteristic UUID
     BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
 

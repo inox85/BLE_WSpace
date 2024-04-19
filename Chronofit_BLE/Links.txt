@@ -1,0 +1,1 @@
+Documentazione ESP32-C3: https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html
