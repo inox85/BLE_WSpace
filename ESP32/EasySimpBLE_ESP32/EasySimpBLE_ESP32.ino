@@ -54,7 +54,7 @@ BLEUnsignedIntCharacteristic temperatureChar("19B10005-E8F2-537E-4F6C-D104768A12
     BLERead | BLENotify); // remote clients will be able to get notifications if this characteristic changes
 
 
-FilterOnePole gsrFilter(LOWPASS, 1.0F);
+FilterOnePole gsrFilter(LOWPASS, 0.1F);
 FilterOnePole hrFilterHP( LOWPASS, 2.0F );
 FilterOnePole hrFilterLP( HIGHPASS, 1.0F );
 FilterOnePole beatFilter( LOWPASS, 0.5F);
@@ -196,21 +196,6 @@ void loop() {
 }
 
 
-void readGSR()
-{
-    int gsr_adc = analogRead(GSR_ADC);
-    double gsr = ((double)4095-(double)gsr_adc)*1000000/((double)gsr_adc * (double)(220));
-    double filteredGSR = gsrFilter.input(gsr);;
-    //Serial.print("GSR: ");
-    //Serial.print(filteredGSR);
-    gsrChar.writeValue(filteredGSR);
-}
-
-
-
-
-
-
 double checkZeroCrossing(double hr_signal){
 
   if(prevValue < 0 && hr_signal > 0)
@@ -229,7 +214,7 @@ double checkZeroCrossing(double hr_signal){
   return 0;
 }
 
-const int NUM_READINGS = 50;
+const int NUM_READINGS = 20;
 double readings[NUM_READINGS]; // Array per mantenere le letture
 int sample_index = 0; // Indice corrente dell'array circolare
 
@@ -252,6 +237,5 @@ double calculateMovingAverage(double newValue) {
   //Serial.println(beat_min);
   hrChar.writeValue((beat_min));
   return beat_min;
-
 
 }
