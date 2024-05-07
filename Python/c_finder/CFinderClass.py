@@ -4,8 +4,10 @@ import time
 from bleak import BleakScanner
 import ShellyPy
 
+# Galaxy Watch4 (WFTK) 	 -84 	 7C:E2:3F:50:0B:8F
 class CFinderClass:
-    def __init__(self, device_threat_name, shelly_ip="192.168.13.47"):
+    def __init__(self, device_threat_name="Galaxy Watch4", device_threath_address="7C:E2:3F:50:0B:8F", shelly_ip="192.168.13.47"):
+
         self.shelly_device = ShellyPy.Shelly(shelly_ip)
         self.device_to_find = device_threat_name
         self.latest_sighting = datetime.now()
