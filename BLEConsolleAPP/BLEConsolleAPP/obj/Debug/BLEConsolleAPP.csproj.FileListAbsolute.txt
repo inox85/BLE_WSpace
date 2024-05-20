@@ -18,3 +18,13 @@ C:\Users\Davide\OneDrive\Documenti\src\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\
 C:\Users\Davide\OneDrive\Documenti\src\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.csproj.CopyComplete
 C:\Users\Davide\OneDrive\Documenti\src\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.exe
 C:\Users\Davide\OneDrive\Documenti\src\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.pdb
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\bin\Debug\BLEConsolleAPP.exe.config
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\bin\Debug\BLEConsolleAPP.exe
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\bin\Debug\BLEConsolleAPP.pdb
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\bin\Debug\InTheHand.Net.Bluetooth.dll
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\bin\Debug\InTheHand.Net.Bluetooth.xml
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.csproj.AssemblyReference.cache
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.csproj.CoreCompileInputs.cache
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConso.23EA8DFF.Up2Date
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.exe
+C:\Users\innocenti\Desktop\BLE_WSpace\BLEConsolleAPP\BLEConsolleAPP\obj\Debug\BLEConsolleAPP.pdb
